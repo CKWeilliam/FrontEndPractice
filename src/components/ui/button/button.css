@@ -1,0 +1,43 @@
+.button {
+    @apply rounded-md border-[1px]  bg-white px-2 text-xs  transition-all  ease-in-out hover:shadow-md hover:cursor-pointer;
+}
+
+.button-primary {
+    @apply border-blue-500 text-blue-500 hover:border-blue-400 active:bg-blue-400/50 active:ring-2 active:ring-blue-400/50 hover:bg-blue-500 hover:text-white;
+}
+
+.button-primary.button-active {
+    @apply bg-blue-500 text-white border-blue-400
+}
+
+.button-primary.contain {
+    @apply bg-blue-500 text-white border-blue-400
+}
+
+.button-success {
+    @apply border-green-500 text-green-500 hover:border-green-600  hover:bg-green-400 hover:text-green-600 active:bg-green-400/50 active:ring-2 active:ring-green-400/50;
+}
+
+.button-success .outline {
+    @apply hover:bg-green-200/20 active:bg-green-300/50;
+}
+
+.button-success.contained {
+    @apply bg-green-400 text-white hover:bg-green-500/90;
+}
+
+.button-danger {
+    @apply border-red-400 text-red-400 hover:border-red-500/90 hover:bg-red-500/90 hover:text-white active:bg-red-300/50;
+}
+
+.button-danger.button-active {
+    @apply bg-red-500 text-white border-red-400
+}
+
+.button-warning {
+    @apply border-orange-400 text-orange-400 hover:border-orange-500 hover:bg-orange-200/30 hover:text-orange-500 active:bg-orange-300/50;
+}
+
+.button-secondary {
+    @apply border-purple-400 text-purple-400 hover:border-purple-500 hover:bg-purple-200/30 hover:text-purple-500 active:bg-purple-300/50;
+}

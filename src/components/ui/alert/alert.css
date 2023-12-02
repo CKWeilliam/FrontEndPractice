@@ -1,0 +1,23 @@
+.kb-alert {
+    @apply fixed bottom-0 right-0 z-[101] translate-x-[150%] transition-all duration-300 ease-in-out;
+}
+
+.active {
+    @apply -translate-x-6;
+}
+
+.alert-success {
+    @apply mb-4 flex border-t-4 border-green-400 bg-green-100 p-4 text-green-800 dark:border-green-800 dark:bg-gray-800 dark:text-green-400;
+}
+
+.alert-danger {
+    @apply mb-4 flex border-t-4 border-red-300 bg-red-100 p-4 text-red-800 dark:border-red-800 dark:bg-gray-800 dark:text-red-400;
+}
+
+.alert-primary {
+    @apply mb-4 flex border-t-4 border-blue-300 bg-blue-100 p-4 text-blue-800 dark:border-blue-800 dark:bg-gray-800 dark:text-blue-400;
+}
+
+.alert-warning {
+    @apply mb-4 flex border-t-4 border-orange-300 bg-orange-100 p-4 text-orange-800 dark:border-orange-800 dark:bg-gray-800 dark:text-orange-400;
+}

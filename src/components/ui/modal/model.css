@@ -1,0 +1,54 @@
+.modal {
+    @apply invisible
+    fixed left-0 right-0 top-0 z-[100] 
+    h-full w-full
+    cursor-pointer 
+    bg-black/[0.7]
+    opacity-0
+    transition-all
+    duration-300;
+}
+
+.modal-content {
+    resize: both;
+    overflow: auto;
+    @apply relative top-[8vh] z-30 m-auto h-[80vh] w-3/5 cursor-default border-none shadow-xl;
+}
+
+.modal-content {
+    animation: modalout;
+    animation-duration: 0.3s;
+}
+
+.modal.show {
+    display: block;
+    visibility: visible;
+    transition: opacity 0.2s linear;
+    opacity: 1.2;
+}
+
+.modal-content.show {
+    animation: modalfade;
+    animation-duration: 0.3s;
+}
+
+@keyframes modalfade {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 8vh;
+        opacity: 1;
+    }
+}
+@keyframes modalout {
+    from {
+        top: 8vh;
+        opacity: 1;
+    }
+    to {
+        top: -300px;
+        opacity: 0;
+    }
+}
