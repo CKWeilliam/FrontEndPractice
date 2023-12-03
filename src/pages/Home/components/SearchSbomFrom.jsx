@@ -1,26 +1,37 @@
 import React, { useState } from 'react'
 import { default as Input, SelectInput, TextArea } from '../../../components/ui/input'
 import SearchBar from './SearchBar'
+import SearchResult from './SearchResult'
+import MarkData from './MarkFile'
 
 const selectOptions = {
     partType: ['Add-on Card', 'HD Backplane', 'Memory', 'Riser Card'],
     fileCategory:['Software', 'BOM', 'EEPROM', 'Other']
 }
 
+
+  
+
 const SearchSbomForm = () => {
-
+    const [showResult, setShowResult] = useState(false);
     const [formData, setFormData] = useState({
-
         partType:'',
         fileCategory:'',
     })
-    const [searchResult, setSearchResult] = useState(null)
 
-    const handleSearchResult = (keyword) => {
-        setSearchResult(keyword)
-        console.log(keyword)
+    const handleInputChange = (name, value) => {
+
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
     }
 
+    const handleSearchResult = (searchData) => {
+        // 在這裡處理搜索結果或執行其他必要的邏輯
+        console.log(JSON.stringify(searchData));
+        setShowResult(true);
+    }
 
     return (
         <div> 
@@ -34,7 +45,7 @@ const SearchSbomForm = () => {
                     // value={formData.partType}
                     name="partType"
                     defaultValue={selectOptions['partType'][0]}
-                    // onChange={handleInputChange}
+                    onChange={(e) => handleInputChange('partType',  e.target.value)}
                     options={selectOptions['partType']}
                 />
             </li>
@@ -45,12 +56,14 @@ const SearchSbomForm = () => {
                     // value={formData.fileCategory}
                     name="fileCategory"
                     defaultValue={selectOptions['fileCategory'][0]}
-                    // onChange={handleInputChange}
+                    onChange={(e) => handleInputChange('fileCategory',  e.target.value)}
                     options={selectOptions['fileCategory']}
                 />
             </li>
-            <SearchBar onSearch = {handleSearchResult}/>
-            <></>
+            <SearchBar onSearch = {handleSearchResult} formData={formData}/>
+            {showResult && <SearchResult 
+            // resultData={searchData} 
+            />}
         </div>
     )
 }
