@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-// import { AddThirdPartyPackage } from '../../../services/sysytemSbom'
+// import { AddThirdPartyPackage } from '../../../../services/sysytemSbom'
 import { default as Input, SelectInput, TextArea } from '../../../components/ui/input'
 
 const selectOptions = {
     partType: ['Add-on Card', 'HD Backplane', 'Memory', 'Riser Card'],
-    fileCategory:['Software', 'BOM', 'EEPROM', 'Other']
+    fileCategory: ['Software', 'BOM', 'EEPROM', 'Other']
 }
 
 
@@ -12,9 +12,10 @@ const UploadForm = () => {
 
     const [formData, setFormData] = useState({
         partNumber: '',
-        partType:'',
-        fileCategory:'',
-        files: [],
+        partType: '',
+        fileCategory: '',
+        files:[],
+        // files: [{ file: null, fileVersion: '' }],
     })
 
     const handleInputChange = (e) => {
@@ -24,7 +25,7 @@ const UploadForm = () => {
             [name]: value,
         })
     }
-        
+
     const handleFileChange = (e, index) => {
         const files = [...formData.files]
         files[index] = {
@@ -36,7 +37,7 @@ const UploadForm = () => {
             files,
         })
     }
-        
+
     const handleFileVersionChange = (e, index) => {
         const files = [...formData.files]
         files[index] = {
@@ -50,10 +51,13 @@ const UploadForm = () => {
     }
 
     const handleAddFile = () => {
-        setFormData({
-            ...formData,
-            files: [...formData.files, { file: null, fileVersion: '' }],
-        })
+        if (formData.files.length < 5) {
+            setFormData({
+                ...formData,
+                files: [...formData.files, { file: null, fileVersion: '' }],
+            })
+
+        }
     }
 
     const handleRemoveFile = (index) => {
@@ -76,7 +80,7 @@ const UploadForm = () => {
 
         formData.files.forEach((fileObject, index) => {
             formDataForUpload.append('System_SBOMS_Upload', fileObject.file)
-            formDataForUpload.append(`file_version[${index}]`, fileObject.fileVersion)
+            formDataForUpload.append(`file_versions[${index}]`, fileObject.fileVersion)
         })
         // const formData = new FormData()
 
@@ -96,7 +100,7 @@ const UploadForm = () => {
         // formData.append('file_name_2', 'test_file_113002.txt')
         // formData.append('file_version_2', '1')
         // formData.append('file_type_2', 'text/plain')
-            
+
         console.log(formDataForUpload)
         for (const pair of formDataForUpload.entries()) {
             console.log(pair[0] + ', ' + pair[1])
@@ -108,19 +112,19 @@ const UploadForm = () => {
         // console.log(result.response.data.message)
     }
     return (
-        <div>     
+        <div>
             <form onSubmit={handleUpload}>
-                <div >
+                <div>
                     <li className='flex justify-center p-[0.5em] border-b-2'>
                         <label className='w-64 flex p-[.5em]'>Part No. </label>
-                        <Input 
-                            name="partNumber"  
-                            value={formData.partNumber} 
+                        <Input
+                            name="partNumber"
+                            value={formData.partNumber}
                             onChange={handleInputChange} />
                         <br />
                     </li>
                     <li className="flex justify-center p-[0.5em] border-b-2">
-                        <label className='w-64 flex p-[.5em]'>Part Type</label>
+                        <label className='w-32 flex p-[.5em]'>Part Type</label>
                         <SelectInput
                             className='flex-1'
                             value={formData.partType}
@@ -129,9 +133,7 @@ const UploadForm = () => {
                             onChange={handleInputChange}
                             options={selectOptions['partType']}
                         />
-                    </li>
-                    <li className="flex justify-center p-[0.5em] border-b-2">
-                        <label className='w-64 flex p-[.5em]'>File Category</label>
+                        <label className='w-32 flex p-[.5em]'>File Category</label>
                         <SelectInput
                             className='flex-1'
                             value={formData.fileCategory}
@@ -141,25 +143,36 @@ const UploadForm = () => {
                             options={selectOptions['fileCategory']}
                         />
                     </li>
-                    <li className='flex items-center p-[0.5em] flex-row'>
-                        <label className='w-64 flex p-[.5em]'>Upload Files</label>
+                    <div className='flex items-center p-[0.5em] flex-row border-4' >
+                        <label className='w-1/2 flex p-[.5em]'>Upload Files</label>
+                        <label className='w-1/4 flex p-[.5em]'>File Version</label>
+                        <div className='w-1/4'>
+                            <button type="button" onClick={handleAddFile} className='button button-success h-8'>Add File</button>
+                        </div>
+                    </div>
+                    <div>
                         {formData.files.map((fileObject, index) => (
-                            <div key={index}>   
-                                <div key={index} className="flex-2 p-[0.5em] w-64">
-                                    <input type="file" name={`file${index + 1}`} onChange={(e) => handleFileChange(e, index)} />
-                                    <input type="text" name={`fileVersion${index + 1}`} value={fileObject.fileVersion} onChange={(e) => handleFileVersionChange(e, index)} placeholder="File Version" />
+                            <div key={index} className="grid grid-cols-4 items-center p-[0.5em] gap-[0em] border-2">
+                                <input type="file" name={`file${index + 1}`} onChange={(e) => handleFileChange(e, index)} className="col-span-2 w-full" />
+                                <Input
+                                    className="col-span-1 w-full"
+                                    name={`fileVersion${index + 1}`}
+                                    value={fileObject.fileVersion}
+                                    onChange={(e) => handleFileVersionChange(e, index)}
+                                    placeholder="File Version"
+                                />
+                                <div key={index+1} className='w-full '>
+                                    <button type="button" onClick={() => handleRemoveFile(index)} className="col-span-1 button button-danger h-8">Remove</button>
                                 </div>
-                                <button type="button" onClick={() => handleRemoveFile(index)}>Remove</button>
-                            </div> 
+                            </div>
                         ))}
-                        <br />
-                        <button type="button" onClick={handleAddFile}>Add File</button>
-                    </li>
-                    <button type="submit" className="bg-gray-500 text-white border-0 m-3 p-[.5em] pr-[1em] pb-[.5em] pl-[1em]" >upload</button>
+                    </div>
+
+                    <button type="submit" className="button button-primary h-8 border-0 m-3 p-[.5em] pr-[1em] pb-[.5em] pl-[1em]" >Upload</button>
                 </div>
 
             </form>
-        </div>   
+        </div>
     )
 }
 

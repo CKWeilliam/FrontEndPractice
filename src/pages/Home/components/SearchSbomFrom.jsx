@@ -13,7 +13,7 @@ const selectOptions = {
   
 
 const SearchSbomForm = () => {
-    const [showResult, setShowResult] = useState(false);
+    const [showResult, setShowResult] = useState(false)
     const [formData, setFormData] = useState({
         partType:'',
         fileCategory:'',
@@ -24,13 +24,13 @@ const SearchSbomForm = () => {
         setFormData({
             ...formData,
             [name]: value,
-        });
+        })
     }
 
     const handleSearchResult = (searchData) => {
         // 在這裡處理搜索結果或執行其他必要的邏輯
-        console.log(JSON.stringify(searchData));
-        setShowResult(true);
+        console.log(JSON.stringify(searchData))
+        setShowResult(true)
     }
 
     return (

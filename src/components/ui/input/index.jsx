@@ -131,7 +131,7 @@ export const TextArea = forwardRef((props, ref) => {
                     onChange={onChange && onChange}
                     type={type || 'text'}
                     placeholder={placeholder || ''}
-                    className={`${className} ${disabled ? ' cursor-not-allowed ' : ''}kb-input`}
+                    className={`${className} ${disabled ? ' cursor-not-allowed ' : ''} kb-input min-h-[80px]`}
                     required={required}
                     disabled={disabled || null}
                 />
@@ -155,7 +155,7 @@ export const TextArea = forwardRef((props, ref) => {
                 onChange={onChange && onChange}
                 type={type || 'text'}
                 placeholder={placeholder || ''}
-                className={`${className} ${disabled ? ' cursor-not-allowed ' : ''} kb-input `}
+                className={`${className} ${disabled ? ' cursor-not-allowed ' : ''} kb-input`}
                 required={required}
                 disabled={disabled || null}
             />
@@ -268,30 +268,28 @@ export function SelectInput({
                     className={`bx bx-chevron-down bx-sm  transition-all ${isOpen ? 'rotate-180 transform' : ''}`}
                 ></span>
             </button>
-            {
-                <div
-                    className={`absolute right-0 mt-2 max-h-60  w-full overflow-hidden rounded-md bg-transparent shadow-lg transition-all duration-150 ease-linear  ${
+            <div
+                className={`absolute right-0 mt-2 max-h-60  w-full overflow-auto rounded-md bg-transparent shadow-lg transition-all duration-150 ease-linear  ${
                         isOpen ? '' : 'max-h-[0]'
-                    }`}
+                }`}
+            >
+                <ul
+                    className={`${isOpen ? 'z-[15]' : 'z-10'} relative flex flex-col bg-white py-1`}
                 >
-                    <ul
-                        className={`${isOpen ? 'z-[15]' : 'z-10'} relative flex flex-col overflow-hidden bg-white py-1`}
-                    >
-                        {options.map((option) => (
-                            <li key={option}>
-                                <button
-                                    className={`${
+                    {options.map((option) => (
+                        <li key={option}>
+                            <button
+                                className={`${
                                         option === value ? 'bg-kb-main/30' : 'bg-white'
-                                    } focus:bg-gray-30 h-[30px]  w-full px-4 text-left hover:bg-gray-200`}
-                                    onClick={() => handleOptionSelect(option)}
-                                >
-                                    {option}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            }
+                                } focus:bg-gray-30 h-[30px]  w-full px-4 text-left hover:bg-gray-200`}
+                                onClick={() => handleOptionSelect(option)}
+                            >
+                                {option}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     )
 }

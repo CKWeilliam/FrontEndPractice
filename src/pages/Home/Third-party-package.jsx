@@ -4,9 +4,10 @@ import UploadForm from './components/Upload3rdPartyForm.jsx'
 import SearchSbomForm from './components/SearchSbomFrom.jsx'
 import About from './components/About.jsx'
 
-const Home = () => {
 
 
+const ThirdPartyPackage = () => {
+      
     return (
         <Container style={{ '& *': { boxSizing: 'border-box' } }}>
             <div className="m-4 border-b-2">
@@ -16,10 +17,10 @@ const Home = () => {
             </div>
             <UploadForm />
             <SearchSbomForm />
+
         </Container>
     )
       
 }
 
-
-export default Home
+export default ThirdPartyPackage

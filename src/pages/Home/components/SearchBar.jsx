@@ -9,14 +9,14 @@ const SearchBar = ({ onSearch, formData }) => {
         const value = e.target.value
         setSearchKeywords(value)
     }   
-        // handle API form data here
-        const handleSearch = () => {
-            onSearch({
-                partType: formData.partType,
-                fileCategory: formData.fileCategory,
-                searchText: searchKeywords,
-            });
-        }
+    // handle API form data here
+    const handleSearch = () => {
+        onSearch({
+            partType: formData.partType,
+            fileCategory: formData.fileCategory,
+            searchText: searchKeywords,
+        })
+    }
 
     return (
         <div className='row items-center p-2'>
