@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Input } from '../../../components/ui'
 
 const SearchBar = ({ onSearch, formData }) => {
@@ -23,13 +23,11 @@ const SearchBar = ({ onSearch, formData }) => {
             <div className='w-full flex items-center gap-4'>
                 <Input id='test' name='test' value={searchKeywords} onChange={handleKeywordChange}/>
                 <button className='button button-primary h-8' onClick={handleSearch}>Search</button>
-                {/* <button className='button button-danger h-8'>Clear</button> */}
+                <button className='button button-danger h-8'>Clear</button>
                 {/* <button className='button button-success h-8'>Download</button>
                 <button className='button button-success h-8'>Switch</button> */}
             </div>
-            <div className='w-full flex gap-4'>
-                <p>Founded result:</p>
-            </div>
+
         </div>
     )
 }

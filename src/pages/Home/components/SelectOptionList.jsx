@@ -1,86 +1,211 @@
-const SelectOptionsList = {
-    partType: [
-        '1. Air Shroud',
-        '2. Blade Dummy Chassis',
-        '3. Blade Enclosure Chassis',
-        '4. Blade Module Chassis',
-        '5. Blade Server Enclosure',
-        '6. Chassis Accessory Box',
-        '7. Cable',
-        '8. Chassis Parts',
-        '9. CD-ROM and accessory',
-        '10. Chassis',
-        '11. Virtual Chassis',
-        '12. Disk Set',
-        '13. Cooling Fan',
-        '14. Floppy Disk and accessory',
-        '15. Cooling Fan accessory',
-        '16. Liquid Cooling Solution',
-        '17. Micro Blade Dummy Chassis',
-        '18. Micro Blade Enclosure Chassis',
-        '19. Micro Blade Module Chassis',
-        '20. Manual',
-        '21. Monitor',
-        '22. Mobile Rack',
-        '23. OEM Chassis',
-        '24. Others',
-        '25. Power Supply and accessory',
-        '26. SuperBarebones',
-        '27. Heat Sink',
-        '28. Rack',
-        '29. Front Bezel',
-        '30. Front Panel(Elec. Device)',
-        '31. Tray',
-        '32. Label',
-        '33. Packaging',
-        '34. Rails',
-        '35. Add-on Card',
-        '36. HD Backplane',
-        '37. Control Board',
-        '38. CPU',
-        '39. Driver',
-        '40. DVD Drive',
-        '41. GPU',
-        '42. Hard Drive',
-        '43. Hard Drive Solid State',
-        '44. Internal Firmware',
-        '45. Motherboard',
-        '46. Memory',
-        '47. OEM Servers',
-        '48. Riser Card',
-        '49. SuperBladeSystem',
-        '50. Storage Controller Card',
-        '51. Solid State Flash Appliance',
-        '52. SuperRackSystem',
-        '53. SSD-Solid State',
-        '54. Switch Ethernet',
-        '55. IBM Power System',
-        '56. SuperStoreSystem',
-        '57. SuperServers',
-        '58. Software',
-        '59. SuperWorkStations',
-        '60. Auto-Configurator System',
-        '61. A+ Servers',
-        '62. Bracket',
-        '63. Blade Server Module',
-        '64. Consigned Part',
-        '65. Drawings',
-        '66. MicroBlade',
-        '67. Micro Blade Server Enclosure',
-        '68. Micro Blade Server Module',
-        '69. OEM Part',
-        '70. Power Distributor',
-        '71. PIO System',
-        '72. Part',
-        '73. RKS System',
-        '74. Rear Window',
-        '75. Retention Modules',
-        '76. SuperValue',
-        '77. Services',
-        '78. Transceiver',
-        '79. Non-Manual Related Docs',
-    ],
-    fileCategory:['Software', 'BOM', 'EEPROM', 'Other']
-}
+const MarkData = [
+    {
+        'part_no': 'XJ112233',
+        'part_type': 'HD Backplane',
+        'file_category': 'EEPROM',
+        'uploaded_dt': { '$date': '2023-12-03T08:30:45.000Z' },
+        'files': [
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e938a' },
+                'file_name': 'Example1.txt',
+                'file_version': '2',
+                'file_type': 'application/octet-stream',
+                '_id': { '$oid': '5a4d86e81d99a843a74e938b' }
+            },
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e938c' },
+                'file_name': 'Example2.txt',
+                'file_version': '3',
+                'file_type': 'application/octet-stream',
+                '_id': { '$oid': '5a4d86e81d99a843a74e938d' }
+            }
+        ],
+        '__v': 1
+    },
+    {
+        'part_no': 'AB987654',
+        'part_type': 'Memory',
+        'file_category': 'BOM',
+        'uploaded_dt': { '$date': '2023-12-03T12:15:22.000Z' },
+        'files': [
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e938e' },
+                'file_name': 'Example3.txt',
+                'file_version': '1',
+                'file_type': 'text/plain',
+                '_id': { '$oid': '5a4d86e81d99a843a74e938f' }
+            },
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e9390' },
+                'file_name': 'Example4.txt',
+                'file_version': '2',
+                'file_type': 'text/plain',
+                '_id': { '$oid': '5a4d86e81d99a843a74e9391' }
+            }
+        ],
+        '__v': 1
+    },
+    {
+        'part_no': 'ZYX987654',
+        'part_type': 'Riser Card',
+        'file_category': 'Other',
+        'uploaded_dt': { '$date': '2023-12-03T16:45:10.000Z' },
+        'files': [
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e9392' },
+                'file_name': 'Example5.txt',
+                'file_version': '1',
+                'file_type': 'application/octet-stream',
+                '_id': { '$oid': '5a4d86e81d99a843a74e9393' }
+            },
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e9394' },
+                'file_name': 'Example6.txt',
+                'file_version': '3',
+                'file_type': 'application/octet-stream',
+                '_id': { '$oid': '5a4d86e81d99a843a74e9395' }
+            }
+        ],
+        '__v': 1
+    },
+    {
+        'part_no': 'JK112233',
+        'part_type': 'Add-on Card',
+        'file_category': 'BOM',
+        'uploaded_dt': { '$date': '2023-12-03T20:00:05.000Z' },
+        'files': [
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e9396' },
+                'file_name': 'Example7.txt',
+                'file_version': '2',
+                'file_type': 'text/plain',
+                '_id': { '$oid': '5a4d86e81d99a843a74e9397' }
+            },
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e9398' },
+                'file_name': 'Example8.txt',
+                'file_version': '1',
+                'file_type': 'text/plain',
+                '_id': { '$oid': '5a4d86e81d99a843a74e9399' }
+            }
+        ],
+        '__v': 1
+    },
+    {
+        'part_no': 'LMN123456',
+        'part_type': 'Software',
+        'file_category': 'Other',
+        'uploaded_dt': { '$date': '2023-12-03T23:30:30.000Z' },
+        'files': [
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e939a' },
+                'file_name': 'Example9.txt',
+                'file_version': '3',
+                'file_type': 'application/octet-stream',
+                '_id': { '$oid': '5a4d86e81d99a843a74e939b' }
+            },
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e939c' },
+                'file_name': 'Example10.txt',
+                'file_version': '2',
+                'file_type': 'application/octet-stream',
+                '_id': { '$oid': '5a4d86e81d99a843a74e939d' }
+            }
+        ],
+        '__v': 1
+    },
+    {
+        'part_no': 'OP112233',
+        'part_type': 'Blade Server Module',
+        'file_category': 'SBOM',
+        'uploaded_dt': { '$date': '2023-12-04T08:45:18.000Z' },
+        'files': [
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e939e' },
+                'file_name': 'Example11.txt',
+                'file_version': '1',
+                'file_type': 'text/plain',
+                '_id': { '$oid': '5a4d86e81d99a843a74e939f' }
+            },
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e93a0' },
+                'file_name': 'Example12.txt',
+                'file_version': '2',
+                'file_type': 'text/plain',
+                '_id': { '$oid': '5a4d86e81d99a843a74e93a1' }
+            }
+        ],
+        '__v': 1
+    },
+    {
+        'part_no': 'QR112233',
+        'part_type': 'SuperServers',
+        'file_category': 'BIOS',
+        'uploaded_dt': { '$date': '2023-12-04T12:30:12.000Z' },
+        'files': [
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e93a2' },
+                'file_name': 'Example13.txt',
+                'file_version': '3',
+                'file_type': 'application/octet-stream',
+                '_id': { '$oid': '5a4d86e81d99a843a74e93a3' }
+            },
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e93a4' },
+                'file_name': 'Example14.txt',
+                'file_version': '1',
+                'file_type': 'application/octet-stream',
+                '_id': { '$oid': '5a4d86e81d99a843a74e93a5' }
+            }
+        ],
+        '__v': 1
+    },
+    {
+        'part_no': 'ST112233',
+        'part_type': 'SSD-Solid State',
+        'file_category': 'Regular',
+        'uploaded_dt': { '$date': '2023-12-04T16:15:28.000Z' },
+        'files': [
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e93a6' },
+                'file_name': 'Example15.txt',
+                'file_version': '2',
+                'file_type': 'text/plain',
+                '_id': { '$oid': '5a4d86e81d99a843a74e93a7' }
+            },
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e93a8' },
+                'file_name': 'Example16.txt',
+                'file_version': '3',
+                'file_type': 'text/plain',
+                '_id': { '$oid': '5a4d86e81d99a843a74e93a9' }
+            }
+        ],
+        '__v': 1
+    },
+    {
+        'part_no': 'UV112233',
+        'part_type': 'Cooling Fan',
+        'file_category': 'EEPROM',
+        'uploaded_dt': { '$date': '2023-12-04T20:00:45.000Z' },
+        'files': [
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e93aa' },
+                'file_name': 'Example17.txt',
+                'file_version': '1',
+                'file_type': 'application/octet-stream',
+                '_id': { '$oid': '5a4d86e81d99a843a74e93ab' }
+            },
+            {
+                'file_id': { '$oid': '5a4d86e81d99a843a74e93ac' },
+                'file_name': 'Example18.txt',
+                'file_version': '2',
+                'file_type': 'application/octet-stream',
+                '_id': { '$oid': '5a4d86e81d99a843a74e93ad' }
+            }
+        ],
+        '__v': 1
+    }
+]
 
-export default SelectOptionsList
+export default MarkData

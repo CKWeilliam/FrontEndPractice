@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef  } from 'react'
 import { default as Input, SelectInput, TextArea } from '../../../components/ui/input'
 import SearchBar from './SearchBar'
 import SearchResult from './SearchResult'
@@ -9,15 +9,14 @@ const selectOptions = {
     fileCategory:['Software', 'BOM', 'EEPROM', 'Other']
 }
 
-
-  
-
 const SearchSbomForm = () => {
-    const [showResult, setShowResult] = useState(false)
+    
     const [formData, setFormData] = useState({
         partType:'',
         fileCategory:'',
     })
+    const [showResult, setShowResult] = useState(false)
+    const [resultCount, setResultCount ] = useState(0)
 
     const handleInputChange = (name, value) => {
 
@@ -32,6 +31,7 @@ const SearchSbomForm = () => {
         console.log(JSON.stringify(searchData))
         setShowResult(true)
     }
+
 
     return (
         <div> 
@@ -61,11 +61,17 @@ const SearchSbomForm = () => {
                 />
             </li>
             <SearchBar onSearch = {handleSearchResult} formData={formData}/>
+            <div className='w-full flex gap-4 h-8'>
+                <p>Founded result:{resultCount}</p>
+            </div>
             {showResult && <SearchResult 
             // resultData={searchData} 
+                count = {setResultCount} 
             />}
+            
         </div>
     )
 }
+
 
 export default SearchSbomForm
