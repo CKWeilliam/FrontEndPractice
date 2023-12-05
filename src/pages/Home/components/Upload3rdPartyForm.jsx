@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 // import { AddThirdPartyPackage } from '../../../../services/sysytemSbom'
 import { default as Input, SelectInput, TextArea } from '../../../components/ui/input'
 
@@ -6,7 +6,6 @@ const selectOptions = {
     partType: ['Add-on Card', 'HD Backplane', 'Memory', 'Riser Card'],
     fileCategory: ['Software', 'BOM', 'EEPROM', 'Other']
 }
-
 
 const UploadForm = () => {
 
@@ -153,7 +152,9 @@ const UploadForm = () => {
                     <div>
                         {formData.files.map((fileObject, index) => (
                             <div key={index} className="grid grid-cols-4 items-center p-[0.5em] gap-[0em] border-2">
-                                <input type="file" name={`file${index + 1}`} onChange={(e) => handleFileChange(e, index)} className="col-span-2 w-full" />
+                                {/* <input type="file" name={`file${index + 1}`} onChange={(e) => handleFileChange(e, index)} className="col-span-2 w-full" /> */}
+                                {/* {fileObject.file && <p> {fileObject.file.name}</p>} */}
+                                {yourComponent}
                                 <Input
                                     className="col-span-1 w-full"
                                     name={`fileVersion${index + 1}`}
@@ -161,7 +162,7 @@ const UploadForm = () => {
                                     onChange={(e) => handleFileVersionChange(e, index)}
                                     placeholder="File Version"
                                 />
-                                <div key={index+1} className='w-full '>
+                                <div key={index} className='w-full '>
                                     <button type="button" onClick={() => handleRemoveFile(index)} className="col-span-1 button button-danger h-8">Remove</button>
                                 </div>
                             </div>
