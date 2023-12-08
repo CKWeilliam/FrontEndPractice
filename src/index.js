@@ -3,12 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 // import App from './App';
 // import reportWebVitals from './reportWebVitals';
-import Home from "./pages/Home/Third-party-package.jsx";
+// import Home from "./pages/Home/ThirdPartyPackage.jsx";
+import ThirdPartyPackage from "./pages/Home/third-party-package/ThirdPartyPackage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Home />
+    <ThirdPartyPackage />
   </React.StrictMode>,
 );
 

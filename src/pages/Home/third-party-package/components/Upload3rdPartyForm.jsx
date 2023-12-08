@@ -1,21 +1,25 @@
-import React, { useState, useRef } from 'react'
-// import { AddThirdPartyPackage } from '../../../../services/sysytemSbom'
-import { default as Input, SelectInput, TextArea } from '../../../components/ui/input'
-
-const selectOptions = {
-    partType: ['Add-on Card', 'HD Backplane', 'Memory', 'Riser Card'],
-    fileCategory: ['Software', 'BOM', 'EEPROM', 'Other']
-}
+import React, { useState, useEffect } from 'react'
+// import { AddThirdPartyPackage } from '../../../../services/thirdPartyPackage'
+import { default as Input, SelectInput, TextArea } from '../../../../components/ui/input'
+import { SelectOptionsList } from './SelectOptionList'
+import { Loading } from '../../../../components/ui'
+// import { useAlert } from '../../../../hooks'
+// import { useKBQuery } from '../../../../hooks'
 
 const UploadForm = () => {
-
+    const formDataForUpload = new FormData()
+    // const { Alert } = useAlert()
+    const [isLoading , setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         partNumber: '',
         partType: '',
         fileCategory: '',
         files:[],
+        //If you need to display a single line on the uploaded file, the settings are as below.
         // files: [{ file: null, fileVersion: '' }],
     })
+
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -68,10 +72,23 @@ const UploadForm = () => {
         })
     }
 
-    const handleUpload = async (e) => {
-        e.preventDefault()
-        console.log(JSON.stringify(formData))
-        const formDataForUpload = new FormData()
+    console.log('1 :', isLoading)
+
+    useEffect(() =>{
+        if (formDataForUpload && formDataForUpload.getAll('System_SBOMS_Upload').length > 0) {
+            handleUpload()
+        }
+    }
+    ,[formDataForUpload, isLoading])
+
+    // console.log(JSON.stringify(formData))
+    const handleUpload = async (e) => {  
+
+        // e.preventDefault()
+        setIsLoading(true)
+        console.log('2 :', isLoading)
+        // console.log(JSON.stringify(formData))
+        
         formDataForUpload.append('part_no', formData.partNumber)
         formDataForUpload.append('part_type', formData.partType)
         formDataForUpload.append('file_category', formData.fileCategory)
@@ -81,67 +98,69 @@ const UploadForm = () => {
             formDataForUpload.append('System_SBOMS_Upload', fileObject.file)
             formDataForUpload.append(`file_versions[${index}]`, fileObject.fileVersion)
         })
-        // const formData = new FormData()
-
-        // 添加一般的表單數據
-        // formData.append('part_no', '2023113001')
-        // formData.append('part_type', 'ipmi')
-        // formData.append('file_category', 'ipmi')
-
-        // // 添加日期
-        // formData.append('uploaded_dt', '2023-11-30T00:00:00.000Z')
-
-        // // 添加文件信息
-        // formData.append('file_name_1', 'test_file_113001.txt')
-        // formData.append('file_version_1', '0')
-        // formData.append('file_type_1', 'text/plain')
-
-        // formData.append('file_name_2', 'test_file_113002.txt')
-        // formData.append('file_version_2', '1')
-        // formData.append('file_type_2', 'text/plain')
-
         console.log(formDataForUpload)
-        for (const pair of formDataForUpload.entries()) {
-            console.log(pair[0] + ', ' + pair[1])
-        }
-
-
-        // const result = await AddThirdPartyPackage(formDataForUpload)
-        // console.log(result)
-        // console.log(result.response.data.message)
+        //Post API function
+        // try {
+        //     const result = await AddThirdPartyPackage(formDataForUpload)
+        //     console.log('statusCode:', result.success)
+        //     if (result.success){
+        //         Alert('success', 'Upload File Success.')
+        //     }else{
+        //         Alert('danger', 'Upload File Error.')
+        //     }
+            
+        //     setFormData({
+        //         partNumber: '',
+        //         partType: '',
+        //         fileCategory: '',
+        //         files: [],
+        //     })
+        // } catch (error) {
+        //     console.log('Failing post')
+        //     Alert('danger', 'Upload File Error.')
+        // } finally {
+        //     setIsLoading(false)
+        // }
     }
+
+
+        
     return (
         <div>
-            <form onSubmit={handleUpload}>
-                <div>
-                    <li className='flex justify-center p-[0.5em] border-b-2'>
-                        <label className='w-64 flex p-[.5em]'>Part No. </label>
+            {isLoading ? (
+                <Loading />
+            ) : (
+            <div >
+                <div >
+                    <div className='flex justify-center p-[0.5em] border-b-2'>
+                        <label className='w-32 flex p-[.5em]'>Part No. </label>
                         <Input
                             name="partNumber"
                             value={formData.partNumber}
+                            required={true}
                             onChange={handleInputChange} />
                         <br />
-                    </li>
-                    <li className="flex justify-center p-[0.5em] border-b-2">
+                    </div>
+                    <div className="flex justify-center p-[0.5em]">
                         <label className='w-32 flex p-[.5em]'>Part Type</label>
                         <SelectInput
                             className='flex-1'
                             value={formData.partType}
                             name="partType"
-                            defaultValue={selectOptions['partType'][0]}
+                            defaultValue={SelectOptionsList['partType'][0]}
                             onChange={handleInputChange}
-                            options={selectOptions['partType']}
+                            options={SelectOptionsList['partType']}
                         />
                         <label className='w-32 flex p-[.5em]'>File Category</label>
                         <SelectInput
                             className='flex-1'
                             value={formData.fileCategory}
                             name="fileCategory"
-                            defaultValue={selectOptions['fileCategory'][0]}
+                            defaultValue={SelectOptionsList['fileCategory'][0]}
                             onChange={handleInputChange}
-                            options={selectOptions['fileCategory']}
+                            options={SelectOptionsList['fileCategory']}
                         />
-                    </li>
+                    </div>
                     <div className='flex items-center p-[0.5em] flex-row border-4' >
                         <label className='w-1/2 flex p-[.5em]'>Upload Files</label>
                         <label className='w-1/4 flex p-[.5em]'>File Version</label>
@@ -152,9 +171,8 @@ const UploadForm = () => {
                     <div>
                         {formData.files.map((fileObject, index) => (
                             <div key={index} className="grid grid-cols-4 items-center p-[0.5em] gap-[0em] border-2">
-                                {/* <input type="file" name={`file${index + 1}`} onChange={(e) => handleFileChange(e, index)} className="col-span-2 w-full" /> */}
+                                <input type="file" name={`file${index + 1}`} onChange={(e) => handleFileChange(e, index)} className="col-span-2 w-full" />
                                 {/* {fileObject.file && <p> {fileObject.file.name}</p>} */}
-                                {yourComponent}
                                 <Input
                                     className="col-span-1 w-full"
                                     name={`fileVersion${index + 1}`}
@@ -169,10 +187,11 @@ const UploadForm = () => {
                         ))}
                     </div>
 
-                    <button type="submit" className="button button-primary h-8 border-0 m-3 p-[.5em] pr-[1em] pb-[.5em] pl-[1em]" >Upload</button>
+                    <button onClick={handleUpload} type="button" className="button button-primary h-8 border-0 m-3 p-[.5em] pr-[1em] pb-[.5em] pl-[1em]" >Upload</button>
                 </div>
 
-            </form>
+            </div>
+            )}
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Container } from '@mui/material'
 import UploadForm from './components/Upload3rdPartyForm.jsx'
 import SearchSbomForm from './components/SearchSbomFrom.jsx'
@@ -7,7 +7,7 @@ import About from './components/About.jsx'
 
 
 const ThirdPartyPackage = () => {
-      
+    console.log(' ThirdPartyPackage')
     return (
         <Container style={{ '& *': { boxSizing: 'border-box' } }}>
             <div className="m-4 border-b-2">
@@ -17,7 +17,6 @@ const ThirdPartyPackage = () => {
             </div>
             <UploadForm />
             <SearchSbomForm />
-
         </Container>
     )
       
