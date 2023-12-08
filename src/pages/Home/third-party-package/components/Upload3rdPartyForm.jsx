@@ -98,7 +98,17 @@ const UploadForm = () => {
             formDataForUpload.append('System_SBOMS_Upload', fileObject.file)
             formDataForUpload.append(`file_versions[${index}]`, fileObject.fileVersion)
         })
+
+        //For Testing without API 
         console.log(formDataForUpload)
+        setIsLoading(false)
+        setFormData({
+                    partNumber: '',
+                    partType: '',
+                    fileCategory: '',
+                    files: [],
+                })
+
         //Post API function
         // try {
         //     const result = await AddThirdPartyPackage(formDataForUpload)
