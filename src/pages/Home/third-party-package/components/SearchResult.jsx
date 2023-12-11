@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { MarkData } from './MarkFile'
-import ReactPaginate from 'react-paginate'
+// import ReactPaginate from 'react-paginate'
+import { Pagination } from '@mui/material'
+import Stack from '@mui/material/Stack';
+import { ThemeProvider } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
 // import { GetDownloadThirdPartyPackage } from '../../../../services/thirdPartyPackage'
 
 
@@ -61,66 +65,49 @@ const SearchResult = ({ resultData, setCount }) => {
         )
     }
 
-    
-    const itemsPerPage = 5
 
     const PaginatedItems = ({ items }) => {
-    // Here we use item offsets; we could also use page offsets
-    // following the API or data you're working with.
-        const [itemOffset, setItemOffset] = useState(0)
-
-        // Simulate fetching items from another resources.
-        // (This could be items from props; or items loaded in a local state
-        // from an API endpoint with useEffect and useState)
-        const endOffset = itemOffset + itemsPerPage
-        console.log(`Loading items from ${itemOffset} to ${endOffset}`)
-        const currentItems = items.slice(itemOffset, endOffset)
-        // console.log(currentItems)
-        const pageCount = Math.ceil(items.length / itemsPerPage)
-        setCount(MarkData.length)
-  
-        // Invoke when user click to request another page.
-        const handlePageClick = (event) => {
-            const newOffset = (event.selected * itemsPerPage) % items.length
-            console.log(
-                `User requested page number ${event.selected}, which is offset ${newOffset}`
-            )
-            setItemOffset(newOffset)
-        }
+        const [page, setPage] = useState(1);
+        const itemsPerPage = 5;
+      
+        const handlePageChange = (event, value) => {
+          setPage(value);
+        };
+      
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const currentItems = items.slice(startIndex, endIndex);
+        const pageCount = Math.ceil(items.length / itemsPerPage);
+      
+        setCount(items.length);
+      
         return (
-            <>
-                <Items currentItems={currentItems} />
-                <ReactPaginate
-                    nextLabel="next >"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={3}
-                    marginPagesDisplayed={2}
-                    pageCount={pageCount}
-                    previousLabel="< previous"
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link"
-                    breakLabel="..."
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link"
-                    containerClassName="pagination"
-                    activeClassName="active"
-                    renderOnZeroPageCount={null}
-                />
-            </>
-        )
-    }
+          <>
+            <Items currentItems={currentItems} />
+            <Stack spacing={2} justifyContent="center" alignItems="center">
+              <Pagination
+                count={pageCount}
+                page={page}
+                onChange={handlePageChange}
+                variant="outlined"
+                shape="rounded"
+                sx={{
+                    '.MuiPagination-ul': {
+                        marginTop: '16px',
+                        justifyContent: 'center',
+                    },
+                }}
+              />
+            </Stack>
+          </>
+        );
+      };
+    
 
 
     return (
-        <PaginatedItems items={MarkData}/>
-        // // Input API's Data
-        // <PaginatedItems items={resultData}/>
-    )
-}
-  
+          <PaginatedItems items={MarkData}/>
+      );
+    };
 
 export default SearchResult
