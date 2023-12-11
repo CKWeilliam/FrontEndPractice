@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Input } from '../../../../components/ui'
 
+
+
 const SearchBar = ({ onSearch, clearSelectSearch, formData  }) => {
 
     const [searchKeywords, setSearchKeywords] = useState('')
@@ -8,14 +10,12 @@ const SearchBar = ({ onSearch, clearSelectSearch, formData  }) => {
     const handleKeywordChange = (e) => {
         const value = e.target.value
         setSearchKeywords(value)
-    }   
+    }
     // handle API form data here
     const handleSearch = () => {
         onSearch({
-            partNumber: formData.partNumber,
-            partType: formData.partType,
-            fileCategory: formData.fileCategory,
-            searchText: searchKeywords,
+            ...formData,
+            fileName: searchKeywords,
         })
     }
     const handleClear = (formData) =>(
@@ -26,7 +26,6 @@ const SearchBar = ({ onSearch, clearSelectSearch, formData  }) => {
         }),
         setSearchKeywords('') 
     )
-
 
     return (
         <div className='row items-center p-2'>
