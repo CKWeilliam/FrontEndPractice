@@ -3,8 +3,6 @@ import { MarkData } from './MarkFile'
 // import ReactPaginate from 'react-paginate'
 import { Pagination } from '@mui/material'
 import Stack from '@mui/material/Stack';
-import { ThemeProvider } from '@mui/material'
-import CssBaseline from '@mui/material/CssBaseline'
 // import { GetDownloadThirdPartyPackage } from '../../../../services/thirdPartyPackage'
 
 
@@ -106,8 +104,18 @@ const SearchResult = ({ resultData, setCount }) => {
 
 
     return (
-          <PaginatedItems items={MarkData}/>
-      );
+        <div>
+        {
+            MarkData.length === 0 ? (
+                <div className="flex h-full items-center justify-center">
+                    <p className="text-xl font-medium text-red-500">No Result</p>
+                </div>
+            ) : (
+                <PaginatedItems items={MarkData} />
+            )
+        }
+        </div>
+        );
     };
 
 export default SearchResult
