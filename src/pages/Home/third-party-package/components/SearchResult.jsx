@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { MarkData } from './MarkFile'
+import React, { useState} from 'react'
 // import ReactPaginate from 'react-paginate'
 import { Pagination } from '@mui/material'
 import Stack from '@mui/material/Stack';
@@ -7,9 +6,9 @@ import Stack from '@mui/material/Stack';
 
 
 
-const SearchResult = ({ resultData, setCount }) => {
-    console.log('resultData', resultData)
-    console.log(JSON.stringify(resultData))
+const SearchResult = ({ resultData, setResultCount }) => {
+    // console.log('resultData', resultData)
+    // console.log(JSON.stringify(resultData))
 
     const handleDownload = async (fileId) => {
 
@@ -23,7 +22,7 @@ const SearchResult = ({ resultData, setCount }) => {
 
         //     // 取得檔案名稱，先假設後端在 response headers 中提供檔案名稱，要跟kevin討論能不能在header放資訊
         //     const fileName = response.headers['content-disposition'].split('filename=')[1]
-
+        //     // 'filename= TEST.pdf'
         //     // 將檔案內容設置到 Blob 中，並設定檔案類型
         //     const blob = new Blob([response.data], { type: response.headers['content-type'] })
         //     const link = document.createElement('a')
@@ -40,7 +39,7 @@ const SearchResult = ({ resultData, setCount }) => {
     }
 
     const Items = ({ currentItems }) => {
-        console.log(currentItems)
+        // console.log(currentItems)
         return(
             <div className="flex flex-col space-y-4">
                 {currentItems.map((item) => (
@@ -65,57 +64,57 @@ const SearchResult = ({ resultData, setCount }) => {
 
 
     const PaginatedItems = ({ items }) => {
-        const [page, setPage] = useState(1);
-        const itemsPerPage = 5;
+        const [page, setPage] = useState(1)
+        const itemsPerPage = 5
       
         const handlePageChange = (event, value) => {
-          setPage(value);
-        };
+            setPage(value)
+        }
       
-        const startIndex = (page - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const currentItems = items.slice(startIndex, endIndex);
-        const pageCount = Math.ceil(items.length / itemsPerPage);
+        const startIndex = (page - 1) * itemsPerPage
+        const endIndex = startIndex + itemsPerPage
+        const currentItems = items.slice(startIndex, endIndex)
+        const pageCount = Math.ceil(items.length / itemsPerPage)
       
-        setCount(items.length);
+        // setResultCount(items.length)
       
         return (
-          <>
-            <Items currentItems={currentItems} />
-            <Stack spacing={2} justifyContent="center" alignItems="center">
-              <Pagination
-                count={pageCount}
-                page={page}
-                onChange={handlePageChange}
-                variant="outlined"
-                shape="rounded"
-                sx={{
-                    '.MuiPagination-ul': {
-                        marginTop: '16px',
-                        justifyContent: 'center',
-                    },
-                }}
-              />
-            </Stack>
-          </>
-        );
-      };
+            <>
+                <Items currentItems={currentItems} />
+                <Stack spacing={2} justifyContent="center" alignItems="center">
+                    <Pagination
+                        count={pageCount}
+                        page={page}
+                        onChange={handlePageChange}
+                        variant="outlined"
+                        shape="rounded"
+                        sx={{
+                            '.MuiPagination-ul': {
+                                margin: '16px',
+                                justifyContent: 'center',
+                            },
+                        }}
+                    />
+                </Stack>
+            </>
+        )
+    }
     
 
 
     return (
         <div>
-        {
-            MarkData.length === 0 ? (
+            {
+            resultData.length === 0 ? (
                 <div className="flex h-full items-center justify-center">
-                    <p className="text-xl font-medium text-red-500">No Result</p>
+                    <p className="text-xl font-medium text-red-500">Sorry, No Search Result</p>
                 </div>
             ) : (
-                <PaginatedItems items={MarkData} />
+                <PaginatedItems items={resultData} />
             )
-        }
+            }
         </div>
-        );
-    };
+    )
+}
 
 export default SearchResult

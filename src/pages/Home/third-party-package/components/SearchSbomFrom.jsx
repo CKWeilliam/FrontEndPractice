@@ -6,6 +6,7 @@ import { MarkData } from './MarkFile'
 import { SelectOptionsList } from './SelectOptionList'
 import { PaginationItem } from '@mui/material'
 // import { GetSearchThirdPartyPackage } from '../../../../services/thirdPartyPackage'
+import { Loading } from '../../../../components/ui'
 
 
 
@@ -14,10 +15,12 @@ const SearchSbomForm = () => {
         partNumber: '',
         partType: '',
         fileCategory: '',
+        fileName:''
     })
     const [ showResult, setShowResult ] = useState(false)
     const [ resultCount, setResultCount ] = useState(0)
-    const [ searchResultList, setSearchResultList ] =useState({})
+    const [ searchResultList, setSearchResultList ] =useState([])
+    const [ isLoading , setIsLoading ] = useState(false)
 
     const handleInputChange = (name, value) => {
 
@@ -27,7 +30,15 @@ const SearchSbomForm = () => {
         })
     }
 
+    useEffect(() => {
+        setResultCount(searchResultList.length)
+        console.log('Result count updated:', resultCount)
+        console.log('formData updated:', formData)
+    }, [formData, isLoading])
+
+
     const handleSearchResult = async (searchData) => {
+        setIsLoading(true)
         // If the backend has changed the Body's key, modify it here.
         const keyMapping = {
             'partNumber': 'part_no',
@@ -42,15 +53,22 @@ const SearchSbomForm = () => {
             acc[newKey] = searchData[key]
             return acc
         }, {})
-        console.log(JSON.stringify('傳入格式 :', jsonDataForSearch))
-
-        // // Search data from API
-
-        // const searchResult = await GetSearchThirdPartyPackage(jsonDataForSearch)
-        // setSearchResultList(searchResult.data)
-        // console.log('searchResultList', searchResultList)
         
-        setShowResult(true)
+
+        try {
+            console.log(JSON.stringify('傳入格式 :', jsonDataForSearch))
+            // Search data from API
+            // const searchResult = await GetSearchThirdPartyPackage(jsonDataForSearch)
+            // setSearchResultList(searchResult.data)
+            // console.log('searchResultList', searchResultList)
+            setSearchResultList(MarkData)
+
+        } catch (error) {
+            console.log('Failing post')
+        } finally {
+            setIsLoading(false)
+            setShowResult(true)
+        }
 
     }
 
@@ -92,15 +110,17 @@ const SearchSbomForm = () => {
                     options={SelectOptionsList['fileCategory']}
                 />
             </div>
-            <SearchBar onSearch = {handleSearchResult} clearSelectSearch = {setFormData} formData={formData}/>
+            <SearchBar onSearch = {handleSearchResult} setFormData={setFormData} formData={formData} setShowResult={setShowResult} setSearchResultList={setSearchResultList}/>
             <div className='w-full flex gap-4 h-8'>
                 <p>Founded result:{resultCount}</p>
             </div>
-            {showResult && <SearchResult 
-                setCount = {setResultCount} 
-                // // Input data from API to SearchResult
-                // resultData={searchResultList} 
-            />}
+            {isLoading ? <Loading /> : (
+                showResult && <SearchResult 
+                setResultCount={setResultCount} 
+                    // Input data from API to SearchResult
+                    resultData={searchResultList} 
+                />
+            )}
             
         </div>
     )

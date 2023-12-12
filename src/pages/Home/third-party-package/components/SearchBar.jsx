@@ -2,35 +2,35 @@ import React, { useState } from 'react'
 import { Input } from '../../../../components/ui'
 
 
-
-const SearchBar = ({ onSearch, clearSelectSearch, formData  }) => {
-
-    const [searchKeywords, setSearchKeywords] = useState('')
+const SearchBar = ({ onSearch, setFormData, formData, setShowResult, setSearchResultList }) => {
 
     const handleKeywordChange = (e) => {
         const value = e.target.value
-        setSearchKeywords(value)
+        // setSearchKeywords(value)
+        setFormData({
+            ...formData,
+            fileName: value,
+        })
     }
     // handle API form data here
     const handleSearch = () => {
-        onSearch({
-            ...formData,
-            fileName: searchKeywords,
-        })
+        onSearch(formData)
     }
-    const handleClear = (formData) =>(
-        clearSelectSearch({
+    const handleClear = () =>(
+        setShowResult(false),
+        setSearchResultList([]),
+        setFormData({
             partNumber: '',
             partType: '',
             fileCategory: '',
-        }),
-        setSearchKeywords('') 
+            fileName:''
+        })
     )
 
     return (
         <div className='row items-center p-2'>
             <div className='w-full flex items-center gap-4'>
-                <Input id='test' name='test' value={searchKeywords} onChange={handleKeywordChange}/>
+                <Input id='test' name='test' value={formData.fileName} onChange={handleKeywordChange}/>
                 <button className='button button-primary h-8' onClick={handleSearch}>Search</button>
                 <button className='button button-danger h-8' onClick={handleClear}>Clear</button>
                 {/* <button className='button button-success h-8'>Download</button>
