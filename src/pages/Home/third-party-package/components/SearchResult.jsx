@@ -20,6 +20,10 @@ const SearchResult = ({ resultData, setResultCount }) => {
         //     const response = await GetDownloadThirdPartyPackage(fileId)
         //     console.log(response)
 
+        //     if (!response.ok) {
+
+        //     }
+
         //     // 取得檔案名稱，先假設後端在 response headers 中提供檔案名稱，要跟kevin討論能不能在header放資訊
         //     const fileName = response.headers['content-disposition'].split('filename=')[1]
         //     // 'filename= TEST.pdf'
@@ -40,8 +44,10 @@ const SearchResult = ({ resultData, setResultCount }) => {
 
     const Items = ({ currentItems }) => {
         // console.log(currentItems)
+        // todo 第48行 css 高度固定調整 2023/12/13
         return(
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 h-50"> 
+            
                 {currentItems.map((item) => (
                     <div
                         key={item.file_id} // 使用檔案的 ID 作為 key，確保唯一性

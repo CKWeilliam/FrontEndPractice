@@ -7,7 +7,8 @@ import About from './components/About.jsx'
 
 
 const ThirdPartyPackage = () => {
-    console.log(' ThirdPartyPackage')
+    
+    // console.log(' ThirdPartyPackage')
     return (
         <Container style={{ '& *': { boxSizing: 'border-box' } }}>
             <div className="m-4 border-b-2">

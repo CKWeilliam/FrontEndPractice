@@ -32,8 +32,8 @@ const SearchSbomForm = () => {
 
     useEffect(() => {
         setResultCount(searchResultList.length)
-        console.log('Result count updated:', resultCount)
-        console.log('formData updated:', formData)
+        // console.log('Result count updated:', resultCount)
+        // console.log('formData updated:', formData)
     }, [formData, isLoading])
 
 
