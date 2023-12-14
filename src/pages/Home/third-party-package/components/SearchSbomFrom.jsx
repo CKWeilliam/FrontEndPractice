@@ -8,8 +8,6 @@ import { PaginationItem } from '@mui/material'
 // import { GetSearchThirdPartyPackage } from '../../../../services/thirdPartyPackage'
 import { Loading } from '../../../../components/ui'
 
-
-
 const SearchSbomForm = () => {
     const [formData, setFormData] = useState({
         partNumber: '',
@@ -22,15 +20,32 @@ const SearchSbomForm = () => {
     const [searchResultList, setSearchResultList] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-    const [sortOrder, setSortOrder] = useState('asc');
-    const [sortBy, setSortBy] = useState('partNumber');
+    const [sortOrder, setSortOrder] = useState('asc'); // 用來排序
+    const [sortBy, setSortBy] = useState('id');   // 排序的條件
 
+    /**
+     *  排序方法
+     * @param {} results 
+     * @returns 
+     */
     const sortResults = (results) => {
         return results.sort((a, b) => {
+            let aValue = a[sortBy];
+            let bValue = b[sortBy];
+
+            if (!isNaN(aValue) && !isNaN(bValue)) { // 判斷是否為數字
+                aValue = +aValue;
+                bValue = +bValue;
+            }
+
             if (sortOrder === 'asc') {
-                return a[sortBy] < b[sortBy] ? -1 : 1;
+                if (aValue < bValue) return -1;
+                if (aValue > bValue) return 1;
+                return 0;
             } else { // 'desc'
-                return a[sortBy] > b[sortBy] ? -1 : 1;
+                if (aValue > bValue) return -1;
+                if (aValue < bValue) return 1;
+                return 0;
             }
         });
     };
@@ -49,12 +64,24 @@ const SearchSbomForm = () => {
         // console.log('formData updated:', formData)
     }, [formData, isLoading])
 
+    /**
+     * 偵測當排序條件與順序發生變動時 呼叫排序方法
+     */
     useEffect(() => {
         if (searchResultList.length > 0) {
             setSearchResultList(sortResults([...searchResultList]));
         }
     }, [sortBy, sortOrder]);
 
+    /**
+     * 模擬loading畫面
+     */
+    const simulateLoading = () => {
+        setTimeout(() => {
+            setIsLoading(false)
+            setShowResult(true)
+        }, 1000); // 3秒後設置isLoading為false 
+    };
 
     const handleSearchResult = async (searchData) => {
         setIsLoading(true)
@@ -82,16 +109,22 @@ const SearchSbomForm = () => {
             // console.log('searchResultList', searchResultList)
             const sortedResults = sortResults(MarkData); // 排序搜尋結果
             setSearchResultList(sortedResults);
-            // setSearchResultList(MarkData)
+            // setSearchResultList(MarkData) // 原本的方法 2023/12/14
 
         } catch (error) {
             console.log('Failing post')
         } finally {
-            setIsLoading(false)
-            setShowResult(true)
+            simulateLoading();
         }
 
     }
+
+    const VISIBLE_FIELDS = ['File Name', 'Part No.', 'Part Type', 'File Action']; // 標題欄位
+
+    const sortingOptions = [
+        { label: 'Part No', value: 'part_no' },
+        { label: 'Part Type', value: 'part_type' }
+    ]; // 排序的條件
 
 
     return (
@@ -131,18 +164,31 @@ const SearchSbomForm = () => {
                 />
             </div>
             <SearchBar onSearch={handleSearchResult} setFormData={setFormData} formData={formData} setShowResult={setShowResult} setSearchResultList={setSearchResultList} />
-            <div className='w-full flex gap-4 h-8'>
+            {/* <div className='w-full flex gap-4 h-8'>
                 <p>Founded result:{resultCount}</p>
+            </div> */}
+
+            {/* 新增的排序按鈕與選項 */}
+            <div className='flex justify-between items-center p-4'>
+                <h2 className='text-xl font-bold'>Search Results :{resultCount}</h2>
+                <div>
+                    <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="centered-select  mr-4">
+                        <option value="part_no" className="centered-option">Part No</option>
+                        <option value="part_type" className="centered-option">Part Type</option>
+                    </select>
+                    <button className='button button-primary h-8 w-16 large-text' onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}>
+                        {sortOrder === 'asc' ? '升序' : '降序'}
+                    </button>
+                </div>
             </div>
 
-            <div>
-                <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                    <option value="partNumber">Part Number</option>
-                    <option value="partType">Part Type</option>
-                </select>
-                <button onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}>
-                    {sortOrder === 'asc' ? '升序' : '降序'}
-                </button>
+            {/* 新增的標頭欄位 */}
+            <div className='flex justify-between p-4 border-b bg-blue-600'>
+                {VISIBLE_FIELDS.map((field, index) => (
+                    <span key={index} className='font-bold text-white border border-gray-300 p-2 text-center'>
+                        {field}
+                    </span>
+                ))}
             </div>
 
             {isLoading ? <Loading /> : (

@@ -53,8 +53,14 @@ const SearchResult = ({ resultData, setResultCount }) => {
                         key={item.file_id} // 使用檔案的 ID 作為 key，確保唯一性
                         className="flex items-center justify-between p-4 bg-gray-200 rounded"
                     >
-                        <div className="flex-shrink-0 mr-4">
+                        <div className="flex-shrink-0 mr-4 w-1/4">
                             <span className="">{item.file_name}</span>
+                        </div>
+                        <div className="flex-shrink-0 mr-4  w-1/4">
+                            <span className="">{item.part_no}</span>
+                        </div>
+                        <div className="flex-shrink-0 mr-4  w-1/4">
+                            <span className="">{item.part_type}</span>
                         </div>
                         <button
                             className="button button-success h-8"

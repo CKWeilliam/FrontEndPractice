@@ -1,5 +1,6 @@
 export const MarkData = [
     {
+        'id': '1',
         'part_no': 'XJ112233',
         'file_id': '5a4d86e81d99a843a74e938a',
         'file_name': 'Example1.txt',
@@ -9,6 +10,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '2',
         'part_no': 'YZ445566',
         'file_id': '6b3e97f42c18b2d1e5f7a2b4',
         'file_name': 'Example2.txt',
@@ -18,6 +20,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '3',
         'part_no': 'AB778899',
         'file_id': '7c1a2b8e3f5d6a9d4a7f2e1b',
         'file_name': 'Example3.txt',
@@ -27,6 +30,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '4',
         'part_no': 'CD334455',
         'file_id': '8d3e4f6a9b2c7e8d1e5f7a2b',
         'file_name': 'Example4.txt',
@@ -36,6 +40,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '5',
         'part_no': 'EF556677',
         'file_id': '9a8d7e6f5d4a3f2e1b9c8d7e',
         'file_name': 'Example5.txt',
@@ -45,6 +50,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '6',
         'part_no': 'GH889900',
         'file_id': '1b2c3d4e5f6a7b8c9d0e1f2',
         'file_name': 'Example6.txt',
@@ -54,6 +60,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '7',
         'part_no': 'IJ001122',
         'file_id': '2c3d4e5f6a7b8c9d0e1f2g3',
         'file_name': 'Example7.txt',
@@ -63,6 +70,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '8',
         'part_no': 'KL223344',
         'file_id': '3d4e5f6a7b8c9d0e1f2g3h4',
         'file_name': 'Example8.txt',
@@ -72,6 +80,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '9',
         'part_no': 'MN445566',
         'file_id': '4e5f6a7b8c9d0e1f2g3h4i5',
         'file_name': 'Example9.txt',
@@ -81,6 +90,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '10',
         'part_no': 'OP667788',
         'file_id': '5g6a7b8c9d0e1f2g3h4i5j6',
         'file_name': 'Example10.txt',
@@ -90,6 +100,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '11',
         'part_no': 'QR889900',
         'file_id': '6h7b8c9d0e1f2g3h4i5j6k7',
         'file_name': 'Example11.txt',
@@ -99,6 +110,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '12',
         'part_no': 'ST112233',
         'file_id': '7i8c9d0e1f2g3h4i5j6k7l8',
         'file_name': 'Example12.txt',
@@ -108,6 +120,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '13',
         'part_no': 'UV334455',
         'file_id': '8j9d0e1f2g3h4i5j6k7l8m9',
         'file_name': 'Example13.txt',
@@ -117,6 +130,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '14',
         'part_no': 'WX556677',
         'file_id': '9k7l8m9n0e1f2g3h4i5j6k7l8m9',
         'file_name': 'Example14.txt',
@@ -126,6 +140,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '15',
         'part_no': 'YZ778899',
         'file_id': '0n1e2f3g4h5i6j7k8l9m0n1',
         'file_name': 'Example15.txt',
@@ -135,6 +150,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '16',
         'part_no': 'AB001122',
         'file_id': '1o2g3h4i5j6k7l8m9n0o1',
         'file_name': 'Example16.txt',
@@ -144,6 +160,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '17',
         'part_no': 'CD223344',
         'file_id': '2p3h4i5j6k7l8m9n0o1p2',
         'file_name': 'Example17.txt',
@@ -153,6 +170,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     {
+        'id': '18',
         'part_no': 'EF445566',
         'file_id': '3q4i5j6k7l8m9n0o1p2q3',
         'file_name': 'Example18.txt',
@@ -162,6 +180,7 @@ export const MarkData = [
         'file_type': 'application/octet-stream',
     },
     // {
+        // 'id': '1',
     //     'part_no': 'GH667788',
     //     'file_id': '4r5j6k7l8m9n0o1p2q3r4',
     //     'file_name': 'Example19.txt',
@@ -171,6 +190,7 @@ export const MarkData = [
     //     'file_type': 'application/octet-stream',
     // },
     // {
+        // 'id': '1',
     //     'part_no': 'IJ889900',
     //     'file_id': '5s6k7l8m9n0o1p2q3r4s5',
     //     'file_name': 'Example20.txt',

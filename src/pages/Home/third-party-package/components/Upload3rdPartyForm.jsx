@@ -253,7 +253,7 @@ const UploadForm = () => {
                             <label className='w-1/4 flex p-[.5em] text-align'>File Name</label>
                             <label className='w-1/4 flex p-[.5em] text-align'>File Version</label>
                             <div className='w-1/4 flex text-align'>
-                                <button type="button" onClick={handleAddFile} className='button button-success h-8'>Add File</button>
+                                <button type="button" onClick={handleAddFile} className='button button-success h-8 large-text'>Add File</button>
                             </div>
                         </div>
                         <div>
@@ -277,7 +277,7 @@ const UploadForm = () => {
                                         placeholder="File Version"
                                     />
                                     <div key={index} className='w-full flex text-align'>
-                                        <button type="button" onClick={() => handleRemoveFile(index)} className="col-span-1 button button-danger h-8">Remove</button>
+                                        <button type="button" onClick={() => handleRemoveFile(index)} className="col-span-1 button button-danger h-8 large-text">Remove</button>
                                     </div>
                                 </div>
                             ))}
@@ -288,7 +288,7 @@ const UploadForm = () => {
                             ))}
                         </div>
                         {isShow && <Alert variant={'filled'} type={'success'} alertText={'This is a success alert 1111234!!!'} />}
-                        <button type="button" onClick={handleUpload} className="button button-primary h-8 border-0 m-3 p-[.5em] pr-[1em] pb-[.5em] pl-[1em]" >Upload</button>
+                        <button type="button" onClick={handleUpload} className="button button-primary h-8 border-0 m-3 p-[.5em] pr-[1em] pb-[.5em] pl-[1em] large-text" >Upload</button>
                     </div>
 
                 </div>

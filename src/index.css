@@ -22,3 +22,12 @@ code {
   font-size: 1rem;
   text-align: center;
 }
+
+.centered-select {
+  text-align-last: center;  
+  text-align: center; 
+}
+
+.centered-option {
+  text-align: center;  
+}
