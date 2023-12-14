@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 // import ReactPaginate from 'react-paginate'
 import { Pagination } from '@mui/material'
 import Stack from '@mui/material/Stack';
@@ -45,9 +45,9 @@ const SearchResult = ({ resultData, setResultCount }) => {
     const Items = ({ currentItems }) => {
         // console.log(currentItems)
         // todo 第48行 css 高度固定調整 2023/12/13
-        return(
-            <div className="flex flex-col space-y-4 h-50"> 
-            
+        return (
+            <div className="flex flex-col space-y-4 h-50">
+
                 {currentItems.map((item) => (
                     <div
                         key={item.file_id} // 使用檔案的 ID 作為 key，確保唯一性
@@ -60,7 +60,7 @@ const SearchResult = ({ resultData, setResultCount }) => {
                             className="button button-success h-8"
                             onClick={() => handleDownload(item.file_id)}
                         >
-                    Download
+                            Download
                         </button>
                     </div>
                 ))}
@@ -72,18 +72,18 @@ const SearchResult = ({ resultData, setResultCount }) => {
     const PaginatedItems = ({ items }) => {
         const [page, setPage] = useState(1)
         const itemsPerPage = 5
-      
+
         const handlePageChange = (event, value) => {
             setPage(value)
         }
-      
+
         const startIndex = (page - 1) * itemsPerPage
         const endIndex = startIndex + itemsPerPage
         const currentItems = items.slice(startIndex, endIndex)
         const pageCount = Math.ceil(items.length / itemsPerPage)
-      
+
         // setResultCount(items.length)
-      
+
         return (
             <>
                 <Items currentItems={currentItems} />
@@ -105,19 +105,17 @@ const SearchResult = ({ resultData, setResultCount }) => {
             </>
         )
     }
-    
-
 
     return (
         <div>
             {
-            resultData.length === 0 ? (
-                <div className="flex h-full items-center justify-center">
-                    <p className="text-xl font-medium text-red-500">Sorry, No Search Result</p>
-                </div>
-            ) : (
-                <PaginatedItems items={resultData} />
-            )
+                resultData.length === 0 ? (
+                    <div className="flex h-full items-center justify-center">
+                        <p className="text-xl font-medium text-red-500">Sorry, No Search Result</p>
+                    </div>
+                ) : (
+                    <PaginatedItems items={resultData} />
+                )
             }
         </div>
     )
