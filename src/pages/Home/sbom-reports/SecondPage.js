@@ -161,8 +161,8 @@ const SecondPage = () => {
                     </div>
 
                     {/* 新增的標頭欄位 */}
-                    <div className='flex justify-between p-4 border-b bg-blue-600'>
-                        <span className='flex items-center justify-center font-bold text-white border border-gray-300 p-2 w-1/6'>
+                    <div className='flex items-center justify-between p-4 bg-gray-400 rounded'>
+                        <span className='flex items-center justify-center font-bold border-gray-300 p-2 w-1/6'>
                             <Checkboxes
                                 onChange={handleSelectAll}
                                 checked={selectedItems.length === searchResultList.length && searchResultList.length > 0}
@@ -170,7 +170,7 @@ const SecondPage = () => {
                             />Select All
                         </span>
                         {VISIBLE_FIELDS.map((field, index) => (
-                            <span key={index} className='font-bold text-white border border-gray-300 p-4 text-center w-1/6'>
+                            <span key={index} className='font-bold border border-gray-400 p-4 text-center w-1/6'>
                                 {field}
                             </span>
                         ))} 

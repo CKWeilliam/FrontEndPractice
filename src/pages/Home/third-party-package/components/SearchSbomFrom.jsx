@@ -205,7 +205,7 @@ const SearchSbomForm = () => {
                         <option value="part_no" className="centered-option">Part No</option>
                         <option value="part_type" className="centered-option">Part Type</option>
                     </select>
-                    <button className='button button-primary h-8 w-20 large-text' onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}>
+                    <button className='button button-primary h-8 w-24 large-text' onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}>
                         {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
                     </button>
                 </div>
