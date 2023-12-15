@@ -1,15 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 // import App from './App';
 // import reportWebVitals from './reportWebVitals';
 // import Home from "./pages/Home/ThirdPartyPackage.jsx";
 import ThirdPartyPackage from "./pages/Home/third-party-package/ThirdPartyPackage";
+import SecondPage from "./pages/Home/sbom-reports/SecondPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThirdPartyPackage />
+    <Router>
+      <Routes>
+        <Route path="/" element={<ThirdPartyPackage />} />
+        <Route path="/second-page" element={<SecondPage />} />
+      </Routes>
+    </Router> 
   </React.StrictMode>,
 );
 
