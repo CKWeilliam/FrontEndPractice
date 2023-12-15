@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Pagination } from '@mui/material'
 import Stack from '@mui/material/Stack';
-import Checkboxes from '../third-party-package/components/uploadStatus/CheckBox';
+import Checkboxes from '../third-party-package/components/mui-component/CheckBox';
 
 
 const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {

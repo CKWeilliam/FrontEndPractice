@@ -6,8 +6,8 @@ import SearchBar from '../third-party-package/components/SearchBar';
 import { SelectOptionsList } from "../third-party-package/components/SelectOptionList"; // list data
 import { MarkData } from '../third-party-package/components/MarkFile'; // list data
 import SearchResult from './SecondPage_SearchResult'; 
-import Checkboxes from '../third-party-package/components/uploadStatus/CheckBox';
-import Sort_Result from '../third-party-package/components/uploadStatus/Sort_Result';
+import Checkboxes from '../third-party-package/components/mui-component/CheckBox';
+import Sort_Result from '../third-party-package/components/mui-component/Sort_Result';
 import { sortResults, simulateLoading } from '../../utils/commonFunctions';
 
 const SecondPage = () => {
