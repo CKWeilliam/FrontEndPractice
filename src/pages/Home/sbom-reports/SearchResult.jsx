@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { Pagination } from '@mui/material'
-import Stack from '@mui/material/Stack';
-import Checkboxes from '../third-party-package/components/mui-component/CheckBox';
+import Stack from '@mui/material/Stack'
+import Checkboxes from './mui-components/CheckBox'
 
 
 const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
-    const [selectedItems, setSelectedItems] = useState([]);
+    const [selectedItems, setSelectedItems] = useState([])
 
     useEffect(() => {
-        setSelectedItems(selectedCheckBox);
-    }, [selectedCheckBox]);
+        setSelectedItems(selectedCheckBox)
+    }, [selectedCheckBox])
 
     const handleBulkDownload = () => {
         selectedItems.forEach(fileId => {
-            console.log(`一次下載所有檔案：${fileId}`);
-        });
-    };
+            console.log(`一次下載所有檔案：${fileId}`)
+        })
+    }
 
     const handleDownload = async (fileId) => {
         //Test Download function
@@ -55,15 +55,15 @@ const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
          * @param {*} file_id 
          */
         const handleCheckboxChange = (file_id) => {
-            console.log('file_id', file_id);
+            console.log('file_id', file_id)
             setSelectedItems(prev => {
                 if (prev.includes(file_id)) {
-                    return prev.filter(id => id !== file_id);
+                    return prev.filter(id => id !== file_id)
                 } else {
-                    return [...prev, file_id];
+                    return [...prev, file_id]
                 }
-            });
-        };
+            })
+        }
 
         return (
             <div className="flex flex-col space-y-4 h-50">

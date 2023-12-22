@@ -6,7 +6,7 @@ import "./index.css";
 // import reportWebVitals from './reportWebVitals';
 // import Home from "./pages/Home/ThirdPartyPackage.jsx";
 import ThirdPartyPackage from "./pages/Home/third-party-package/ThirdPartyPackage";
-import SecondPage from "./pages/Home/sbom-reports/SecondPage";
+import SbomReports from "./pages/Home/sbom-reports/SbomReportSearch";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,7 +14,7 @@ root.render(
     <Router>
       <Routes>
         <Route path="/" element={<ThirdPartyPackage />} />
-        <Route path="/second-page" element={<SecondPage />} />
+        <Route path="/sbom-reports" element={<SbomReports />} />
       </Routes>
     </Router> 
   </React.StrictMode>,

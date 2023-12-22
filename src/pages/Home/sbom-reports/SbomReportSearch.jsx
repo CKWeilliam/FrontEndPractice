@@ -1,49 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import { Container } from '@mui/material'
-import { default as Input, SelectInput, TextArea } from "../../../components/ui/input";
-import { Loading } from '../../../components/ui';
-import SearchBar from '../third-party-package/components/SearchBar';
-import { SelectOptionsList } from "../third-party-package/components/SelectOptionList"; // list data
-import { MarkData } from '../third-party-package/components/MarkFile'; // list data
-import SearchResult from './SecondPage_SearchResult'; 
-import Checkboxes from '../third-party-package/components/mui-component/CheckBox';
-import Sort_Result from '../third-party-package/components/mui-component/Sort_Result';
-import { sortResults, simulateLoading } from '../../utils/commonFunctions';
+import { default as Input, SelectInput, TextArea } from '../../../components/ui/input'
+import { Loading } from '../../../components/ui'
+import SearchBar from './SearchBar'
+import { SelectOptionsList } from './SelectOptionList'
+import { MarkData } from './MarkFile'
+import Checkboxes from './mui-components/CheckBox'
+import SearchResult from './SearchResult'
+import SortResult from './mui-components/Sort_Result'
+// import { sortResults, simulateLoading } from '../../utils/commonFunctions'
 
-const SecondPage = () => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [showResult, setShowResult] = useState(false);
-    const [resultCount, setResultCount] = useState(0);
-    const [searchResultList, setSearchResultList] = useState([]); 
-    const [selectedItems, setSelectedItems] = useState([]);
-    const [sortOrder, setSortOrder] = useState('asc'); // 用來排序的方法 升、降
-    const [sortBy, setSortBy] = useState('id');   // 排序的條件
+const SbomReports = () => {
+    const [isLoading, setIsLoading] = useState(false)
+    const [showResult, setShowResult] = useState(false)
+    const [resultCount, setResultCount] = useState(0)
+    const [searchResultList, setSearchResultList] = useState([]) 
+    const [selectedItems, setSelectedItems] = useState([])
+    const [sortOrder, setSortOrder] = useState('asc') // 用來排序的方法 升、降
+    const [sortBy, setSortBy] = useState('id')   // 排序的條件
 
-    const [formData, setFormData] = useState({
-        partNumber: '',
-        partType: '',
-        fileCategory: '',
-        fileName: '',
-        files: [],
+    const [SearchData, setSearchData] = useState({
+        sutType: '',
+        fileType: '',
+        fileName: ''
     })
 
     /**
-     * 偵測isLoading 與 formData
+     * 偵測isLoading 與 SearchData
      */
     useEffect(() => {
         setResultCount(searchResultList.length)
         // console.log('Result count updated:', resultCount)
-        // console.log('formData updated:', formData)
-    }, [formData, isLoading])
+        // console.log('SearchData updated:', SearchData)
+    }, [SearchData, isLoading])
 
     /**
      * 偵測當排序條件與順序發生變動時 呼叫排序方法
      */
-    useEffect(() => {
-        if (searchResultList.length > 0) {
-            setSearchResultList(sortResults(searchResultList, sortBy, sortOrder));
-        }
-    }, [sortBy, sortOrder]);  
+    // useEffect(() => {
+    //     if (searchResultList.length > 0) {
+    //         setSearchResultList(sortResults(searchResultList, sortBy, sortOrder))
+    //     }
+    // }, [sortBy, sortOrder])  
 
     /**
      * 處理input資料事件
@@ -51,8 +49,8 @@ const SecondPage = () => {
      */
     const handleInputChange = (e) => {
         const { name, value } = e.target
-        setFormData({
-            ...formData,
+        setSearchData({
+            ...SearchData,
             [name]: value,
         })
     }
@@ -63,11 +61,22 @@ const SecondPage = () => {
      */
     const handleSelectAll = (e) => { 
         if (e.target.checked) { 
-            setSelectedItems(searchResultList.map(item => item.file_id)); 
+            setSelectedItems(searchResultList.map(item => item.file_id)) 
         } else {
-            setSelectedItems([]);
+            setSelectedItems([])
         }
-    };
+    }
+    const simulateLoading = (options = {}) => {
+        const { delay = 1000, ...stateUpdates } = options
+    
+        setTimeout(() => {
+            Object.values(stateUpdates).forEach(updateFunc => {
+                if (typeof updateFunc === 'function') {
+                    updateFunc()
+                }
+            })
+        }, delay)
+    }
 
     /**
      * 處理搜尋結果
@@ -77,10 +86,8 @@ const SecondPage = () => {
         setIsLoading(true)
         // If the backend has changed the Body's key, modify it here.
         const keyMapping = {
-            'partNumber': 'part_no',
-            'partType': 'part_type',
-            'fileCategory': 'file_category',
-            'fileName': 'file_name'
+            'sutType': 'sutType',
+            'fileType': 'fileType',
         }
 
         // map searchData key names to jsonDataForSearch key names
@@ -97,7 +104,7 @@ const SecondPage = () => {
             // const searchResult = await GetSearchThirdPartyPackage(jsonDataForSearch)
             // setSearchResultList(searchResult.data)
             // console.log('searchResultList', searchResultList) 
-            setSearchResultList(MarkData);
+            setSearchResultList(MarkData)
 
         } catch (error) {
             console.log('Failing post')
@@ -106,7 +113,7 @@ const SecondPage = () => {
                 setIsLoading: () => setIsLoading(false), 
                 setShowResult: () => setShowResult(true), 
                 delay: 1000
-            });
+            })
         }
 
     }
@@ -114,15 +121,15 @@ const SecondPage = () => {
     /**
      * 標題欄位
      */
-    const VISIBLE_FIELDS = ['File Name', 'Part No.', 'Part Type', 'File Action']; 
+    const VISIBLE_FIELDS = ['File Name', 'SUT Type', 'File Type',  'File Action'] 
 
     /**
      * 排序的條件
      */
-    const sortingOptions = [
-        { label: 'Part No', value: 'part_no' },
-        { label: 'Part Type', value: 'part_type' }
-    ];
+    // const sortingOptions = [
+    //     { label: 'Part No', value: 'part_no' },
+    //     { label: 'Part Type', value: 'part_type' }
+    // ]
 
     return (
         <Container style={{ '& *': { boxSizing: 'border-box' } }}>
@@ -136,28 +143,28 @@ const SecondPage = () => {
                         <label className='w-32 flex p-[.5em]'>SUT Type</label>
                         <SelectInput
                             className='flex-1'
-                            value={formData.partType}
-                            name="partType"
-                            defaultValue={SelectOptionsList['partType'][0]}
+                            value={SearchData.sutType}
+                            name="sutType"
+                            defaultValue={SelectOptionsList['sutType'][0]}
                             onChange={handleInputChange}
-                            options={SelectOptionsList['partType']}
+                            options={SelectOptionsList['sutType']}
                         />
                         <label className='w-32 flex p-[.5em]'>File Type</label>
                         <SelectInput
                             className='flex-1'
-                            value={formData.fileCategory}
-                            name="fileCategory"
-                            defaultValue={SelectOptionsList['fileCategory'][0]}
+                            value={SearchData.fileCategory}
+                            name="fileType"
+                            defaultValue={SelectOptionsList['fileType'][0]}
                             onChange={handleInputChange}
-                            options={SelectOptionsList['fileCategory']}
+                            options={SelectOptionsList['fileType']}
                         />
                     </div>
-                    <SearchBar onSearch={handleSearchResult} setFormData={setFormData} formData={formData} setShowResult={setShowResult} setSearchResultList={setSearchResultList} />
+                    <SearchBar onSearch={handleSearchResult} setSearchData={setSearchData} searchData={SearchData} setShowResult={setShowResult} setSearchResultList={setSearchResultList} />
 
                     {/* 新增的排序按鈕與選項 */}
                     <div className='flex justify-between items-center p-4'>
                         <h2 className='text-xl font-bold'>Found Results： {resultCount}</h2>
-                        <Sort_Result sortOrder={sortOrder} setSortOrder={setSortOrder} sortBy={sortBy} setSortBy={setSortBy}/>
+                        {/* <SortResult sortOrder={sortOrder} setSortOrder={setSortOrder} sortBy={sortBy} setSortBy={setSortBy}/> */}
                     </div>
 
                     {/* 新增的標頭欄位 */}
@@ -189,7 +196,7 @@ const SecondPage = () => {
                 </div>
             </div>
         </Container>
-    );
-};
+    )
+}
 
-export default SecondPage;
+export default SbomReports
