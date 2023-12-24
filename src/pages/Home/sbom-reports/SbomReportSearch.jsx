@@ -29,9 +29,9 @@ const SbomReports = () => {
      * 偵測isLoading 與 SearchData
      */
     useEffect(() => {
-        setResultCount(searchResultList.length)
+        setResultCount(searchResultList)
         // console.log('Result count updated:', resultCount)
-        // console.log('SearchData updated:', SearchData)
+        console.log('SearchData updated:', SearchData)
     }, [SearchData, isLoading])
 
     /**
@@ -104,7 +104,8 @@ const SbomReports = () => {
             // const searchResult = await GetSearchThirdPartyPackage(jsonDataForSearch)
             // setSearchResultList(searchResult.data)
             // console.log('searchResultList', searchResultList) 
-            setSearchResultList(MarkData)
+            const TestingData = MarkData.data
+            setSearchResultList(TestingData)
 
         } catch (error) {
             console.log('Failing post')
