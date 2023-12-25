@@ -3,7 +3,6 @@ import { Pagination } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import Checkboxes from './mui-components/CheckBox'
 
-
 const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
     const [selectedItems, setSelectedItems] = useState([])
 
@@ -12,9 +11,10 @@ const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
     }, [selectedCheckBox])
 
     const handleBulkDownload = () => {
-        selectedItems.forEach(fileId => {
-            console.log(`一次下載所有檔案：${fileId}`)
-        })
+
+        // selectedItems.forEach(fileId => {
+        //     console.log(`一次下載所有檔案：${fileId}`)
+        // })
     }
 
     const handleDownload = async (fileId) => {
@@ -81,15 +81,15 @@ const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
                                 />
                             </span>
                         </div>
-                        <div className="flex justify-center items-center w-1/6 mr-4">
+                        <div className="flex justify-center items-center w-1/2 mr-4 text-xs ">
                             <span className="">{item.file_name}</span>
                         </div>
-                        <div className="flex justify-center items-center w-1/6 mr-4">
+                        {/* <div className="flex justify-center items-center w-1/6 mr-4">
                             <span className="">{item.part_no}</span>
-                        </div>
-                        <div className="flex justify-center items-center w-1/6 mr-4">
+                        </div> */}
+                        {/* <div className="flex justify-center items-center w-1/6 mr-4">
                             <span className="">{item.part_type}</span>
-                        </div>
+                        </div> */}
                         <div className="flex justify-center items-center w-1/6">
                             <button
                                 className="button button-success h-8"
@@ -107,7 +107,7 @@ const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
 
     const PaginatedItems = ({ items }) => {
         const [page, setPage] = useState(1)
-        const itemsPerPage = 5
+        const itemsPerPage = 10
 
         const handlePageChange = (event, value) => {
             setPage(value)
@@ -116,7 +116,7 @@ const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
         const startIndex = (page - 1) * itemsPerPage
         const endIndex = startIndex + itemsPerPage
         const currentItems = items.slice(startIndex, endIndex)
-        const pageCount = Math.ceil(items.length / itemsPerPage)
+        const pageCount = Math.ceil(items.length / itemsPerPage) + 40
 
         // setResultCount(items.length)
 

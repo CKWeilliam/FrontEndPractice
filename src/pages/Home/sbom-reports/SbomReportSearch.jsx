@@ -4,11 +4,12 @@ import { default as Input, SelectInput, TextArea } from '../../../components/ui/
 import { Loading } from '../../../components/ui'
 import SearchBar from './SearchBar'
 import { SelectOptionsList } from './SelectOptionList'
-import { MarkData } from './MarkFile'
+import MarkData from './RealMarkFile'
 import Checkboxes from './mui-components/CheckBox'
 import SearchResult from './SearchResult'
 import SortResult from './mui-components/Sort_Result'
 // import { sortResults, simulateLoading } from '../../utils/commonFunctions'
+
 
 const SbomReports = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -20,18 +21,20 @@ const SbomReports = () => {
     const [sortBy, setSortBy] = useState('id')   // 排序的條件
 
     const [SearchData, setSearchData] = useState({
+        page: '',
+        limit: '',
         sutType: '',
         fileType: '',
-        fileName: ''
+        fileName: '',
     })
 
     /**
      * 偵測isLoading 與 SearchData
      */
     useEffect(() => {
-        setResultCount(searchResultList)
+        setResultCount(searchResultList.length)
         // console.log('Result count updated:', resultCount)
-        console.log('SearchData updated:', SearchData)
+        // console.log('SearchData updated:', SearchData)
     }, [SearchData, isLoading])
 
     /**
@@ -83,11 +86,15 @@ const SbomReports = () => {
      * @param {*} searchData 
      */
     const handleSearchResult = async (searchData) => {
+        console.log('測試測試測試',MarkData[0].totalItems)
         setIsLoading(true)
         // If the backend has changed the Body's key, modify it here.
         const keyMapping = {
-            'sutType': 'sutType',
-            'fileType': 'fileType',
+            'page': 'page',
+            'limit': 'limit',
+            'sutType': 'rom_type',
+            'fileType': 'file_type',
+            'fileName': 'file_name'
         }
 
         // map searchData key names to jsonDataForSearch key names
@@ -101,11 +108,11 @@ const SbomReports = () => {
         try {
             console.log(JSON.stringify('傳入格式 :', jsonDataForSearch))
             // Search data from API
-            // const searchResult = await GetSearchThirdPartyPackage(jsonDataForSearch)
+            // const searchResult = await getReportSearch()
             // setSearchResultList(searchResult.data)
             // console.log('searchResultList', searchResultList) 
-            const TestingData = MarkData.data
-            setSearchResultList(TestingData)
+            setSearchResultList(MarkData[0].data)
+            console.log('資料', MarkData[0].data)
 
         } catch (error) {
             console.log('Failing post')
@@ -133,9 +140,10 @@ const SbomReports = () => {
     // ]
 
     return (
-        <Container style={{ '& *': { boxSizing: 'border-box' } }}>
+        <div>
             <div className="m-4 border-b-2">
                 <h1 className="text-2xl font-bold text-start mb-4 dark:border-white w-full flex items-center">Search Page
+                    {/* <About /> */}
                 </h1>
             </div>
             <div >
@@ -153,7 +161,7 @@ const SbomReports = () => {
                         <label className='w-32 flex p-[.5em]'>File Type</label>
                         <SelectInput
                             className='flex-1'
-                            value={SearchData.fileCategory}
+                            value={SearchData.fileType}
                             name="fileType"
                             defaultValue={SelectOptionsList['fileType'][0]}
                             onChange={handleInputChange}
@@ -196,7 +204,7 @@ const SbomReports = () => {
 
                 </div>
             </div>
-        </Container>
+        </div>
     )
 }
 
