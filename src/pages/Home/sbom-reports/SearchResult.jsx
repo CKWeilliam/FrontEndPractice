@@ -3,8 +3,9 @@ import { Pagination } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import Checkboxes from './mui-components/CheckBox'
 
-const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
-    const [selectedItems, setSelectedItems] = useState([])
+const SearchResult = ({ resultData, selectedCheckBox, result, setResultCount, handleSearchResult, page, setPage }) => {
+    const [selectedItems, setSelectedItems] = useState([]);
+    // const [page, setPage] = useState(1);
 
     useEffect(() => {
         setSelectedItems(selectedCheckBox)
@@ -12,9 +13,9 @@ const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
 
     const handleBulkDownload = () => {
 
-        // selectedItems.forEach(fileId => {
-        //     console.log(`一次下載所有檔案：${fileId}`)
-        // })
+        selectedItems.forEach(fileId => {
+            console.log(`一次下載所有檔案：${fileId}`)
+        })
     }
 
     const handleDownload = async (fileId) => {
@@ -49,6 +50,7 @@ const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
     }
 
     const Items = ({ currentItems }) => {
+        // console.log('currentItems', currentItems);
 
         /**
          * 處理checkbox file_id 改變的function，單選打勾時，會setSelectedItems
@@ -70,30 +72,30 @@ const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
 
                 {currentItems.map((item) => (
                     <div
-                        key={item.file_id} // 使用檔案的 ID 作為 key，確保唯一性
+                        key={item._id} // 使用檔案的 ID 作為 key，確保唯一性
                         className="flex items-center justify-between p-4 bg-gray-200 rounded"
                     >
                         <div className="flex justify-center items-center w-1/6 mr-4">
                             <span className="">
                                 <Checkboxes
-                                    checked={selectedItems.includes(item.file_id)}
-                                    onChange={() => handleCheckboxChange(item.file_id)}
+                                    checked={selectedItems.includes(item._id)}
+                                    onChange={() => handleCheckboxChange(item._id)}
                                 />
                             </span>
                         </div>
-                        <div className="flex justify-center items-center w-1/2 mr-4 text-xs ">
-                            <span className="">{item.file_name}</span>
+                        <div className="flex justify-center items-center p-4 text-center w-1/6 text-xs ">
+                            <span className="" style={{ maxWidth: '100%', overflowWrap: 'break-word' }}>{item.file_name}</span>
                         </div>
-                        {/* <div className="flex justify-center items-center w-1/6 mr-4">
-                            <span className="">{item.part_no}</span>
-                        </div> */}
-                        {/* <div className="flex justify-center items-center w-1/6 mr-4">
-                            <span className="">{item.part_type}</span>
-                        </div> */}
-                        <div className="flex justify-center items-center w-1/6">
+                        <div className="flex justify-center items-center p-4 text-center w-1/6">
+                            <span className="">{item.rom_type}</span>
+                        </div>
+                        <div className="flex justify-center items-center p-4 text-center w-1/6">
+                            <span className="">{item.file_type}</span>
+                        </div>
+                        <div className="flex justify-center items-center p-4 text-center w-1/6">
                             <button
                                 className="button button-success h-8"
-                                onClick={() => handleDownload(item.file_id)}
+                                onClick={() => handleDownload(item._id)}
                             >
                                 Download
                             </button>
@@ -105,24 +107,42 @@ const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
     }
 
 
-    const PaginatedItems = ({ items }) => {
-        const [page, setPage] = useState(1)
+    const PaginatedItems = ({ page, setPage, items, result }) => {
+        console.log('PaginatedItems init: items', items);
+        // const [page, setPage] = useState(1);
         const itemsPerPage = 10
 
         const handlePageChange = (event, value) => {
-            setPage(value)
+            console.log('PaginatedItems: handlePageChange s value:', value);
+            console.log('e.target:', event.target);
+            // setPage(value);
+            
+            console.log('After setPage:', value);
+
+            const pageSearchData = {
+                page: value,
+                limit: 10,
+                sutType: items[0].rom_type,
+                fileType: items[0].file_type,
+                fileName: items[0].file_name,
+            };
+
+            handleSearchResult(pageSearchData);
+
+            setPage(value);
         }
 
-        const startIndex = (page - 1) * itemsPerPage
-        const endIndex = startIndex + itemsPerPage
-        const currentItems = items.slice(startIndex, endIndex)
-        const pageCount = Math.ceil(items.length / itemsPerPage) + 40
-
-        // setResultCount(items.length)
+        // const startIndex = (page - 1) * itemsPerPage  // 0
+        // const endIndex = startIndex + itemsPerPage  // 0 + 10
+        // const currentItems = items.slice(startIndex, endIndex);
+        console.log('PaginatedItems: items', items);
+        console.log('PaginatedItems: result:', result);
+        console.log('PaginatedItems: result totalItems:', result.totalItems);
+        const pageCount = Math.ceil((result.totalItems > 0 ? result.totalItems : 1) / itemsPerPage);
 
         return (
             <>
-                <Items currentItems={currentItems} />
+                <Items currentItems={items} />
                 <Stack spacing={2} justifyContent="center" alignItems="center">
                     <Pagination
                         count={pageCount}
@@ -151,7 +171,7 @@ const SearchResult = ({ resultData, selectedCheckBox, setResultCount }) => {
                     </div>
                 ) : (
                     <>
-                        <PaginatedItems items={resultData} />
+                        <PaginatedItems  page={page} setPage={setPage} items={resultData} result={result} />
                         {selectedItems.length > 0 && (
                             <div className="flex justify-center p-4">
                                 <button

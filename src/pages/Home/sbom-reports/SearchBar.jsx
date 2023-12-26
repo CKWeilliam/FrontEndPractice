@@ -32,7 +32,7 @@ const SearchBar = ({ onSearch, setSearchData, searchData, setShowResult, setSear
     return (
         <div className='row items-center p-2'>
             <div className='w-full flex items-center gap-4'>
-                <Input id='test' name='test' value={searchData.fileName} onChange={handleKeywordChange}/>
+                <Input id='test' name='test' value={searchData.fileName} placeholder='Search FileName...' onChange={handleKeywordChange}/>
                 <button className='button button-primary h-8' onClick={handleSearch}>Search</button>
                 <button className='button button-danger h-8' onClick={handleClear}>Clear</button>
                 {/* <button className='button button-success h-8'>Download</button>
